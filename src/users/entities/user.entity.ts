@@ -7,4 +7,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 50 })
   username: string;
+
+  @Column({ type: 'varchar', length: 20, default: 'pass' })
+  password: string;
 }
