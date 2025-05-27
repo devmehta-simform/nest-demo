@@ -12,10 +12,11 @@ export class TodosService {
   ) {}
 
   async create(createTodoDto: CreateTodoDto, user: UserToken) {
-    await this.todoRepository.insert({
+    const insertResult = await this.todoRepository.insert({
       ...createTodoDto,
       user: { id: user.id },
     });
+    return insertResult.generatedMaps[0];
   }
 
   async findAll(user: UserToken) {

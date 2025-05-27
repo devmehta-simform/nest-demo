@@ -11,7 +11,8 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    await this.userRepository.insert(createUserDto);
+    const insertResult = await this.userRepository.insert(createUserDto);
+    return insertResult.generatedMaps[0];
   }
 
   async findAll() {

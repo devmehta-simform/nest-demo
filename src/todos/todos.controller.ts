@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -43,6 +44,7 @@ export class TodosController {
     @Body() updateTodoDto: UpdateTodoDto,
     @User() user: UserToken,
   ) {
+    if (!Object.keys(updateTodoDto).length) throw new BadRequestException();
     return this.todosService.update(+id, updateTodoDto, user);
   }
 
