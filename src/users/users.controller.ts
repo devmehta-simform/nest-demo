@@ -15,7 +15,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from '../decorators/roles/roles.decorator';
 import { UserRole } from '../types/user-role';
 import { AuthGuard } from '../auth/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Roles(UserRole.ADMIN)
 @UseGuards(AuthGuard)
 @Controller('users')

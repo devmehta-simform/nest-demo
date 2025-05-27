@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -32,8 +33,9 @@ export class AuthGuard implements CanActivate {
         context.getClass(),
       ]);
       if (roles.includes(user.role)) request['user'] = user;
-      else throw new UnauthorizedException();
-    } catch {
+      else throw new ForbiddenException();
+    } catch (err: unknown) {
+      if (err instanceof ForbiddenException) throw new ForbiddenException();
       throw new UnauthorizedException();
     }
     return true;

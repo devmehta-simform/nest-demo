@@ -17,6 +17,9 @@ import { User } from '../decorators/user/user.decorator';
 import { UserToken } from '../types/user-token';
 import { Roles } from '../decorators/roles/roles.decorator';
 import { UserRole } from '../types/user-role';
+import { ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiBearerAuth()
 @Roles(UserRole.ADMIN, UserRole.USER)
 @UseGuards(AuthGuard)
 @Controller('todos')
