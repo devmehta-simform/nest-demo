@@ -19,6 +19,7 @@ export class AuthController {
     const token = await this.authService.signIn(
       signInDto.username,
       signInDto.password,
+      signInDto.role,
     );
     if (!token) throw new UnauthorizedException();
     return token;

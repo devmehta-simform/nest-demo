@@ -14,6 +14,9 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from '../decorators/user/user.decorator';
 import { UserToken } from '../types/user-token';
+import { Roles } from '../decorators/roles/roles.decorator';
+import { UserRole } from '../types/user-role';
+@Roles(UserRole.ADMIN, UserRole.USER)
 @UseGuards(AuthGuard)
 @Controller('todos')
 export class TodosController {

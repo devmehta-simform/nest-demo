@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
-
+import { type UserRoleType } from '../types/user-role';
 @Injectable()
 export class AuthService {
   constructor(
@@ -10,16 +10,18 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(username: string, password: string) {
+  async signIn(username: string, password: string, role: UserRoleType) {
     try {
       const user: User = await this.userRepository.findOneByOrFail({
         username,
         password,
+        role,
       });
-      if (user && user.password === password) {
+      if (user && user.password === password && user.role === role) {
         const token = this.jwtService.sign({
           username: user.username,
           id: user.id,
+          role: user.role,
         });
         return { token };
       }
