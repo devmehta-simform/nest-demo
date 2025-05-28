@@ -4,11 +4,12 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { Repository } from 'typeorm';
 import { Todo } from './entities/todo.entity';
 import { UserToken } from '../types/user-token';
+import { TODO_REPOSITORY } from '../constants/providers';
 
 @Injectable()
 export class TodosService {
   constructor(
-    @Inject('TODO_REPOSITORY') private todoRepository: Repository<Todo>,
+    @Inject(TODO_REPOSITORY) private todoRepository: Repository<Todo>,
   ) {}
 
   async create(createTodoDto: CreateTodoDto, user: UserToken) {
