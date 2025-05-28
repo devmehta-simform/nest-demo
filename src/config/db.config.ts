@@ -11,8 +11,8 @@ export const dbConfig: DataSourceOptions = {
   password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_NAME || 'mydb',
   logging: true,
-  entities: ['build/**/*.entity.js'],
-  migrations: ['build/migration/*.js'],
+  entities: ['dist/**/*.entity.js'],
+  migrations: ['dist/migration/*.js'],
   subscribers: [],
 } as const;
 
