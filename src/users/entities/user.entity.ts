@@ -13,7 +13,4 @@ export class User {
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRoleType;
-
-  @Column({ type: 'varchar' })
-  xyz: string;
 }
