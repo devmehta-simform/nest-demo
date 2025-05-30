@@ -27,7 +27,7 @@ export class TodosService {
   }
 
   async findOne(id: number, user: UserToken) {
-    return await this.todoRepository.findOne({
+    return await this.todoRepository.findOneOrFail({
       where: { id, user: { id: user.id } },
     });
   }

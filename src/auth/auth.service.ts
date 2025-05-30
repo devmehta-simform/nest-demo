@@ -12,22 +12,18 @@ export class AuthService {
   ) {}
 
   async signIn(username: string, password: string, role: UserRoleType) {
-    try {
-      const user: User = await this.userRepository.findOneByOrFail({
-        username,
-        password,
-        role,
+    const user: User = await this.userRepository.findOneByOrFail({
+      username,
+      password,
+      role,
+    });
+    if (user && user.password === password && user.role === role) {
+      const token = this.jwtService.sign({
+        username: user.username,
+        id: user.id,
+        role: user.role,
       });
-      if (user && user.password === password && user.role === role) {
-        const token = this.jwtService.sign({
-          username: user.username,
-          id: user.id,
-          role: user.role,
-        });
-        return { token };
-      }
-    } catch {
-      return null;
+      return { token };
     }
   }
 }

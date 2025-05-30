@@ -8,6 +8,9 @@ import {
   Delete,
   UseGuards,
   BadRequestException,
+  ParseIntPipe,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -37,22 +40,24 @@ export class TodosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @User() user: UserToken) {
-    return this.todosService.findOne(+id, user);
+  findOne(@Param('id', ParseIntPipe) id: number, @User() user: UserToken) {
+    return this.todosService.findOne(id, user);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTodoDto: UpdateTodoDto,
     @User() user: UserToken,
   ) {
     if (!Object.keys(updateTodoDto).length) throw new BadRequestException();
-    return this.todosService.update(+id, updateTodoDto, user);
+    return this.todosService.update(id, updateTodoDto, user);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string, @User() user: UserToken) {
-    return this.todosService.remove(+id, user);
+  remove(@Param('id', ParseIntPipe) id: number, @User() user: UserToken) {
+    return this.todosService.remove(id, user);
   }
 }
