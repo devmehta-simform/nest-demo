@@ -12,6 +12,7 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { type UserRoleType } from '../types/user-role';
 import { Roles } from '../decorators/roles/roles.decorator';
+import { PublicRoute } from 'src/decorators/public-route/public-route.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -23,6 +24,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    const isPublicRoute: boolean = this.reflector.get(
+      PublicRoute,
+      context.getHandler(),
+    );
+    if (isPublicRoute) {
+      return true;
+    }
     const request: Request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException();
