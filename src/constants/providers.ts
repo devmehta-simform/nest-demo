@@ -1,0 +1,3 @@
+export const DATA_SOURCE = 'DATA_SOURCE';
+export const TODO_REPOSITORY = 'TODO_REPOSITORY';
+export const USER_REPOSITORY = 'USER_REPOSITORY';

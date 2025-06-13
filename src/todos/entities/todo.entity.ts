@@ -20,5 +20,5 @@ export class Todo {
 
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  userId: number;
+  user: User;
 }
