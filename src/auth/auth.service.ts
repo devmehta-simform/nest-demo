@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async signIn(username: string, password: string, role: UserRoleType) {
-    const user: User = await this.userRepository.findOneByOrFail({
+    const user: User | null = await this.userRepository.findOneBy({
       username,
       password,
       role,
@@ -25,5 +25,6 @@ export class AuthService {
       });
       return { token };
     }
+    return undefined;
   }
 }
